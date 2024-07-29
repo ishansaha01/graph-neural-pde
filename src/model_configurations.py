@@ -1,5 +1,6 @@
 from function_transformer_attention import ODEFuncTransformerAtt
 from function_GAT_attention import ODEFuncAtt
+from function_NOD import NODFunc
 from function_laplacian_diffusion import LaplacianODEFunc
 from block_transformer_attention import AttODEblock
 from block_constant import ConstantODEblock
@@ -30,7 +31,7 @@ def set_block(opt):
     raise BlockNotDefined
   return block
 
-
+#function: 
 def set_function(opt):
   ode_str = opt['function']
   if ode_str == 'laplacian':
@@ -39,6 +40,8 @@ def set_function(opt):
     f = ODEFuncAtt
   elif ode_str == 'transformer':
     f = ODEFuncTransformerAtt
+  elif ode_str == 'NOD':
+    f = NODFunc
   else:
     raise FunctionNotDefined
   return f

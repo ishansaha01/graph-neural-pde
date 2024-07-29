@@ -187,6 +187,7 @@ def test_OGB(model, data, pos_encoding, opt):
   return train_acc, valid_acc, test_acc
 
 
+
 def merge_cmd_args(cmd_opt, opt):
   if cmd_opt['beltrami']:
     opt['beltrami'] = True
@@ -307,7 +308,7 @@ if __name__ == '__main__':
   parser.add_argument('--dropout', type=float, default=0.0, help='Dropout rate.')
   parser.add_argument("--batch_norm", dest='batch_norm', action='store_true', help='search over reg params')
   parser.add_argument('--optimizer', type=str, default='adam', help='One from sgd, rmsprop, adam, adagrad, adamax.')
-  parser.add_argument('--lr', type=float, default=0.01, help='Learning rate.')
+  parser.add_argument('--lr', type=float, default=0.1, help='Learning rate.')
   parser.add_argument('--decay', type=float, default=5e-4, help='Weight decay for optimization')
   parser.add_argument('--epoch', type=int, default=100, help='Number of training epochs per iteration.')
   parser.add_argument('--alpha', type=float, default=1.0, help='Factor in front matrix A.')
@@ -315,8 +316,10 @@ if __name__ == '__main__':
   parser.add_argument('--no_alpha_sigmoid', dest='no_alpha_sigmoid', action='store_true',
                       help='apply sigmoid before multiplying by alpha')
   parser.add_argument('--beta_dim', type=str, default='sc', help='choose either scalar (sc) or vector (vc) beta')
+
+  # The Block resembles how the adjacency terms are learned across each layer , we don't need this in NOD (manual)
   parser.add_argument('--block', type=str, default='constant', help='constant, mixed, attention, hard_attention')
-  parser.add_argument('--function', type=str, default='laplacian', help='laplacian, transformer, dorsey, GAT')
+  parser.add_argument('--function', type=str, default='NOD', help='laplacian, transformer, dorsey, GAT')
   parser.add_argument('--use_mlp', dest='use_mlp', action='store_true',
                       help='Add a fully connected layer to the encoder.')
   parser.add_argument('--add_source', dest='add_source', action='store_true',
@@ -327,8 +330,8 @@ if __name__ == '__main__':
   parser.add_argument('--time', type=float, default=1.0, help='End time of ODE integrator.')
   parser.add_argument('--augment', action='store_true',
                       help='double the length of the feature vector by appending zeros to stabilist ODE learning')
-  parser.add_argument('--method', type=str, help="set the numerical solver: dopri5, euler, rk4, midpoint")
-  parser.add_argument('--step_size', type=float, default=1,
+  parser.add_argument('--method', type=str, default="euler",help="set the numerical solver: dopri5, euler, rk4, midpoint")
+  parser.add_argument('--step_size', type=float, default=0.1,
                       help='fixed step size when using fixed step solvers e.g. rk4')
   parser.add_argument('--max_iters', type=float, default=100, help='maximum number of integration steps')
   parser.add_argument("--adjoint_method", type=str, default="adaptive_heun",
@@ -337,8 +340,8 @@ if __name__ == '__main__':
                       help='use the adjoint ODE method to reduce memory footprint')
   parser.add_argument('--adjoint_step_size', type=float, default=1,
                       help='fixed step size when using fixed step adjoint solvers e.g. rk4')
-  parser.add_argument('--tol_scale', type=float, default=1., help='multiplier for atol and rtol')
-  parser.add_argument("--tol_scale_adjoint", type=float, default=1.0,
+  parser.add_argument('--tol_scale', type=float, default=1, help='multiplier for atol and rtol')
+  parser.add_argument("--tol_scale_adjoint", type=float, default=1,
                       help="multiplier for adjoint_atol and adjoint_rtol")
   parser.add_argument('--ode_blocks', type=int, default=1, help='number of ode blocks to run')
   parser.add_argument("--max_nfe", type=int, default=1000,
@@ -438,5 +441,7 @@ if __name__ == '__main__':
   args = parser.parse_args()
 
   opt = vars(args)
+
+  print(opt)
 
   main(opt)

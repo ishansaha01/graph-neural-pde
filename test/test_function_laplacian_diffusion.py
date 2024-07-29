@@ -12,7 +12,7 @@ import numpy as np
 from sklearn.preprocessing import normalize
 
 from data import get_dataset
-from function_laplacian_diffusion import LaplacianODEFunc
+from function_NOD import LaplacianODEFunc
 from GNN import GNN
 from block_constant import ConstantODEblock
 from torch_geometric.data import Data

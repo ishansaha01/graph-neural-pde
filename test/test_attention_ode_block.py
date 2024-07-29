@@ -11,7 +11,7 @@ from torch import tensor
 from torch import nn
 
 from data import get_dataset
-from function_laplacian_diffusion import LaplacianODEFunc
+from function_NOD import LaplacianODEFunc
 from GNN import GNN
 from block_transformer_attention import AttODEblock
 from test_params import OPT

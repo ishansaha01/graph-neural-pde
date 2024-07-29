@@ -13,7 +13,7 @@ from torch import tensor
 from torch import nn
 
 from data import get_dataset
-from function_laplacian_diffusion import LaplacianODEFunc
+from function_NOD import NODFunc
 from block_constant import ConstantODEblock
 from GNN import GNN
 from test_params import OPT
@@ -51,7 +51,7 @@ class GNNTests(unittest.TestCase):
     gnn = GNN(self.opt, self.dataset, device=self.device)
     odeblock = gnn.odeblock
     self.assertTrue(isinstance(odeblock, ConstantODEblock))
-    self.assertTrue(isinstance(odeblock.odefunc, LaplacianODEFunc))
+    self.assertTrue(isinstance(odeblock.odefunc, NODFunc))
     gnn.train()
     out = odeblock(data.x)
     self.assertTrue(data.x.shape == out.shape)

@@ -12,7 +12,7 @@ from torch import nn
 import numpy as np
 
 from data import get_dataset
-from function_laplacian_diffusion import LaplacianODEFunc
+from function_NOD import NODFunc
 from GNN import GNN
 from block_mixed import MixedODEblock
 from torch_geometric.data import Data
@@ -59,7 +59,7 @@ class MixedODEBlockTests(unittest.TestCase):
     gnn = GNN(self.opt, dataset, device=self.device)
     odeblock = gnn.odeblock
     self.assertTrue(isinstance(odeblock, MixedODEblock))
-    self.assertTrue(isinstance(odeblock.odefunc, LaplacianODEFunc))
+    self.assertTrue(isinstance(odeblock.odefunc, NODFunc))
     self.assertTrue(odeblock.gamma.item() == 0.)
 
   def test_get_mixed_attention(self):
@@ -86,7 +86,7 @@ class MixedODEBlockTests(unittest.TestCase):
     gnn = GNN(self.opt, self.dataset, device=self.device)
     odeblock = gnn.odeblock
     self.assertTrue(isinstance(odeblock, MixedODEblock))
-    self.assertTrue(isinstance(odeblock.odefunc, LaplacianODEFunc))
+    self.assertTrue(isinstance(odeblock.odefunc, NODFunc))
     self.assertTrue(odeblock.gamma.item() == 0.)
     self.assertTrue(odeblock.odefunc.edge_weight.shape is not None)
     gnn.train()

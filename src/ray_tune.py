@@ -10,7 +10,7 @@ from GNN import GNN
 from ray import tune
 from ray.tune import CLIReporter
 from ray.tune.schedulers import ASHAScheduler
-from ray.tune.suggest.ax import AxSearch
+from ray.tune.search.ax import AxSearch
 from run_GNN import get_optimizer, test, test_OGB, train
 from torch import nn
 from CGNN import CGNN, get_sym_adj

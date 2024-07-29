@@ -44,7 +44,7 @@ class ConstantODEblock(ODEblock):
 
     if self.opt["adjoint"] and self.training:
       state_dt = integrator(
-        func, state, t,
+        func, state , t,
         method=self.opt['method'],
         options=dict(step_size=self.opt['step_size'], max_iters=self.opt['max_iters']),
         adjoint_method=self.opt['adjoint_method'],

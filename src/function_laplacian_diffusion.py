@@ -20,7 +20,9 @@ class LaplacianODEFunc(ODEFunc):
 
     self.in_features = in_features
     self.out_features = out_features
+    #'hidden_dim': number of opinions in our code
     self.w = nn.Parameter(torch.eye(opt['hidden_dim']))
+
     self.d = nn.Parameter(torch.zeros(opt['hidden_dim']) + 1)
     self.alpha_sc = nn.Parameter(torch.ones(1))
     self.beta_sc = nn.Parameter(torch.ones(1))
